@@ -3,22 +3,26 @@ import { Doggo } from '../interface/doggo.interface';
 
 @Injectable()
 export class DoggoService {
-  private doggo: Doggo[] = [];
+    private doggos: Doggo[] = [];
 
-  getAllDoggos(): Doggo[] {
-    return this.doggo;
-  }
-
-  createDoggo({ name, breed } : Doggo): boolean {
-    const doggo: Doggo = {
-        id: this.doggo.length,
-        name,
-        breed
+    getAllDoggos(): Doggo[] {
+        return this.doggos;
     }
 
-    this.doggo.push(doggo);
+    getSingleDoggo(id: number): Doggo | string {
+        return this.doggos.find(doggo => doggo.id === id) ?? "Doggo with that id doesn't exist :(";
+    }
 
-    // returns true to show the creation was successful
-    return true;
-  }
+    createDoggo({ name, breed } : Doggo): boolean {
+        const doggo: Doggo = {
+            id: this.doggos.length,
+            name,
+            breed
+        }
+
+        this.doggos.push(doggo);
+
+        // returns true to show the creation was successful
+        return true;
+    }
 }
