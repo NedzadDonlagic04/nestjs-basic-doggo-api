@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { DoggoService } from './doggo.service';
 import { Doggo } from 'src/interface/doggo.interface';
 import { DoggoDTO } from 'src/dto/doggo.dto';
@@ -31,6 +31,14 @@ export class DoggoController {
             return "Doggo deleted :(";
         }
         return "ID not valid, doggo not deleted!";
+    }
+
+    @Put(':id')
+    updateOne(@Param('id', ParseIntPipe) id: number, @Body() body: DoggoDTO): string {
+        if(this.doggoService.updateDoggo(id, body)) {
+            return "Doggo updated!";
+        }
+        return "ID not valid, doggo not updated :(";
     }
 
 }

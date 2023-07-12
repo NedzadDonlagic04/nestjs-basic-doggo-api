@@ -38,4 +38,12 @@ export class DoggoService {
 
         return true;
     }
+
+    updateDoggo(id: number, { name, breed } : Doggo): boolean {
+        if(id in this.doggos) {
+            this.doggos[id] = { id, name, breed };
+            return true;
+        }
+        return false;
+    }
 }
