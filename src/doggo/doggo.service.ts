@@ -4,6 +4,7 @@ import { Doggo } from '../interface/doggo.interface';
 @Injectable()
 export class DoggoService {
     private doggos: Doggo[] = [];
+    private doggoID = 0;
 
     getAllDoggos(): Doggo[] {
         return this.doggos;
@@ -15,14 +16,26 @@ export class DoggoService {
 
     createDoggo({ name, breed } : Doggo): boolean {
         const doggo: Doggo = {
-            id: this.doggos.length,
+            id: this.doggoID,
             name,
             breed
         }
 
         this.doggos.push(doggo);
 
+        this.doggoID++;
+
         // returns true to show the creation was successful
+        return true;
+    }
+
+    deleteDoggo(id: number): boolean {
+        const index = this.doggos.findIndex(doggo => doggo.id === id);
+    
+        if(index === -1) return false;
+
+        this.doggos.splice(index, 1);
+
         return true;
     }
 }
